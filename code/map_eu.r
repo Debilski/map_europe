@@ -6,11 +6,8 @@ library("RColorBrewer")
 library("sp")
 library("classInt")
 
-# Set directory
-dir <- "/Users/partheym/Desktop/Map_Europe/"
-
 # Read shapes (Retrieved from: http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts)
-europe.map<-readShapeSpatial(paste0(dir,"data/NUTS_2013_01M_SH/data/NUTS_RG_01M_2013"))
+europe.map<-readShapeSpatial("data/NUTS_2013_01M_SH/data/NUTS_RG_01M_2013")
 
 # Select shapes by NUTS level
 head(europe.map@data)
@@ -24,7 +21,7 @@ spplot(europe.map2, "NUTS_ID", col.regions=col,
 	xlim = c(-13, 35), ylim = c(33, 72))
 
 # Read some data to be plotted
-some.dat <- read.csv(paste(dir,"data/Some_data.csv", sep=""), sep=";")
+some.dat <- read.csv("data/Some_data.csv", sep=";")
 
 # Match external data by NUTS ID
 europe.map2 <- SpatialPolygonsDataFrame(europe.map2, data= data.frame(europe.map2, some.dat[match(europe.map2$"NUTS_ID", some.dat$"NUTS_ID"),]))
